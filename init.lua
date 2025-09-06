@@ -1,9 +1,11 @@
+package.path = package.path .. ";./lovely-ecs/?.lua"
+
 ---@class ECS
 local ECS = {
-	Component = require("ecs.component"),
-	Entity = require("ecs.entity"),
-	System = require("ecs.system"),
-	World = require("ecs.world"),
+	Component = require("component"),
+	Entity = require("entity"),
+	System = require("system"),
+	World = require("world"),
 }
 
 return ECS

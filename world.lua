@@ -1,4 +1,4 @@
-local class = require("middleclass")
+local class = require("modified_middleclass")
 
 ---@class World: Class
 local World = class("World")

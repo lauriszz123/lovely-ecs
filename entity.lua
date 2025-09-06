@@ -1,6 +1,6 @@
 local class = require("modified_middleclass")
 
-local Component = require("ecs.component")
+local Component = require("component")
 
 ---@class Entity: Object
 local Entity = class("Entity")
@@ -35,7 +35,7 @@ function Entity:removeComponent(component)
 		end
 		self.components[cname] = nil
 	end
-	end
+end
 
 --- Override to handle collision with another entity.
 ---@param other Entity The other entity involved in the collision.
