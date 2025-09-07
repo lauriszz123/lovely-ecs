@@ -3,7 +3,23 @@ local ECS = require("lovely-ecs")
 ---@class Love2DECS
 local Love2DECS = {}
 
-Love2DECS.Component = { PhysicsBody = require("lovely-ecs.love2d.components.PhysicsBody") }
+Love2DECS.Components = {
+	PhysicsBody = require("lovely-ecs.love2d.components.PhysicsBody"),
+	Animation = require("lovely-ecs.love2d.components.Animation"),
+	Sprite = require("lovely-ecs.love2d.components.Sprite"),
+	Audio = require("lovely-ecs.love2d.components.Audio"),
+	Input = require("lovely-ecs.love2d.components.Input"),
+	Timer = require("lovely-ecs.love2d.components.Timer"),
+}
+
+Love2DECS.Systems = {
+	Physics = require("lovely-ecs.love2d.systems.physicsSystem"),
+	Animation = require("lovely-ecs.love2d.systems.animationSystem"),
+	Render = require("lovely-ecs.love2d.systems.renderSystem"),
+	Audio = require("lovely-ecs.love2d.systems.audioSystem"),
+	Input = require("lovely-ecs.love2d.systems.inputSystem"),
+	Timer = require("lovely-ecs.love2d.systems.timerSystem"),
+}
 
 -- Store the current world instance
 local currentWorld = nil

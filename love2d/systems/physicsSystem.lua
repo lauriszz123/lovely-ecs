@@ -1,6 +1,5 @@
-local class = require("middleclass")
-
-local System = require("ecs").System
+local class = require("modified_middleclass")
+local System = require("lovely-ecs").System
 
 ---@class PhysicsSystem: System
 local PhysicsSystem = class("PhysicsSystem", System)

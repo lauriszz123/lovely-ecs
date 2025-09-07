@@ -3,19 +3,32 @@ local class = require("modified_middleclass")
 local System = require("lovely-ecs").System
 
 local Sprite = require("love2d.components.Sprite")
+local Animation = require("love2d.components.Animation")
 local PhysicsBody = require("love2d.components.PhysicsBody")
 
 ---@class RenderSystem: System
 local RenderSystem = class("RenderSystem", System)
+
+function RenderSystem:initialize()
+	System.initialize(self)
+
+	self.camera = { x = 0, y = 0, zoom = 1 }
+end
 
 function RenderSystem:draw()
 	local entitiesWithSprites = self.world:getEntitiesWith(Sprite)
 	local entitiesWithPhysicsBodies = self.world:getEntitiesWith(PhysicsBody)
 
 	-- Sort by layer for proper draw order
+	---@param a Entity
+	---@param b Entity
 	table.sort(entitiesWithSprites, function(a, b)
 		local spriteA = a:getComponent(Sprite)
+		---@cast spriteA Sprite
+
 		local spriteB = b:getComponent(Sprite)
+		---@cast spriteB Sprite
+
 		return spriteA.layer < spriteB.layer
 	end)
 
@@ -25,15 +38,21 @@ function RenderSystem:draw()
 	love.graphics.translate(-self.camera.x, -self.camera.y)
 
 	for _, entity in ipairs(entitiesWithSprites) do
-		local transform = entity:getComponent(Transform)
 		local sprite = entity:getComponent(Sprite)
-		local animation = entity:getComponent(Animation)
+		---@cast sprite Sprite
 
-		if sprite.visible then
+		local animation = entity:getComponent(Animation)
+		---@cast animation Animation
+
+		local physicsBody = entity:getComponent(PhysicsBody)
+		---@cast physicsBody PhysicsBody
+
+		if sprite.visible and physicsBody then
+			local x, y = physicsBody.body:getX(), physicsBody.body:getY()
+			local rotation = physicsBody.body:getAngle()
 			love.graphics.push()
-			love.graphics.translate(transform.x, transform.y)
-			love.graphics.rotate(transform.rotation)
-			love.graphics.scale(transform.scaleX, transform.scaleY)
+			love.graphics.translate(x, y)
+			love.graphics.rotate(rotation)
 			love.graphics.setColor(sprite.color)
 
 			if sprite.image then
@@ -64,11 +83,11 @@ function RenderSystem:draw()
 			local x, y = p.body:getX(), p.body:getY()
 			local angle = p.body:getAngle()
 
-			love.graphics.setColor(r.color)
+			love.graphics.setColor({ 1, 1, 1 })
 			love.graphics.push()
 			love.graphics.translate(x, y)
 			love.graphics.rotate(angle)
-			r.shape(-(p.width / 2), -(p.height / 2), p.width, p.height)
+			love.graphics.rectangle("fill", -(p.width / 2), -(p.height / 2), p.width, p.height)
 			love.graphics.pop()
 		end
 	end
