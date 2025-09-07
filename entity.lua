@@ -24,6 +24,18 @@ function Entity:addComponent(component)
 	component:onAdd()
 end
 
+--- Gets a component from the entity.
+---@param component Component
+---@return Component
+function Entity:getComponent(component)
+	if not component:isSubclassOf(Component) then
+		error("Not a component.")
+	end
+
+	local cname = component.name
+	return self.components[cname]
+end
+
 --- Removes a component from the entity.
 ---@param component Component
 function Entity:removeComponent(component)
@@ -47,18 +59,6 @@ end
 ---@param other Entity The other entity involved in the collision.
 function Entity:onCollisionEnd(other)
 	-- override in subclass
-end
-
---- Gets a component from the entity.
----@param component Component
----@return Component
-function Entity:getComponent(component)
-	if not component:isSubclassOf(Component) then
-		error("Not a component.")
-	end
-
-	local cname = component.name
-	return self.components[cname]
 end
 
 return Entity
