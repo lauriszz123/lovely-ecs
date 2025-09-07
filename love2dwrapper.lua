@@ -3,6 +3,8 @@ local ECS = require("lovely-ecs")
 ---@class Love2DECS
 local Love2DECS = {}
 
+Love2DECS.Component = { PhysicsBody = require("lovely-ecs.love2d.components.PhysicsBody") }
+
 -- Store the current world instance
 local currentWorld = nil
 
@@ -200,14 +202,16 @@ function Love2DECS.stop()
 	originalCallbacks = {}
 end
 
--- Convenience function to create and set up a world
+--- Create a new world and set it as the current world
+---@return World
 function Love2DECS.createWorld()
 	local world = ECS.World()
 	Love2DECS.setWorld(world)
 	return world
 end
 
--- Convenience functions for common operations
+--- Add an entity to the current world
+---@param entity Entity
 function Love2DECS.addEntity(entity)
 	if currentWorld then
 		currentWorld:addEntity(entity)
@@ -216,6 +220,8 @@ function Love2DECS.addEntity(entity)
 	end
 end
 
+--- Remove an entity from the current world
+---@param entity Entity
 function Love2DECS.removeEntity(entity)
 	if currentWorld then
 		currentWorld:removeEntity(entity)
@@ -224,6 +230,8 @@ function Love2DECS.removeEntity(entity)
 	end
 end
 
+--- Add a system to the current world
+---@param system System
 function Love2DECS.addSystem(system)
 	if currentWorld then
 		currentWorld:addSystem(system)
@@ -232,6 +240,9 @@ function Love2DECS.addSystem(system)
 	end
 end
 
+--- Get entities with specified components from the current world
+---@param ... Component Component to filter by
+---@return Entity[] List of entities with the specified components
 function Love2DECS.getEntitiesWith(...)
 	if currentWorld then
 		return currentWorld:getEntitiesWith(...)

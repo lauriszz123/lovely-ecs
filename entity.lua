@@ -43,6 +43,12 @@ function Entity:onCollision(other)
 	-- override in subclass
 end
 
+--- Override to handle end of collision with another entity.
+---@param other Entity The other entity involved in the collision.
+function Entity:onCollisionEnd(other)
+	-- override in subclass
+end
+
 --- Gets a component from the entity.
 ---@param component Component
 ---@return Component
