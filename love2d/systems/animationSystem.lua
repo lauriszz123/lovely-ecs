@@ -1,7 +1,7 @@
 local class = require("modified_middleclass")
 local System = require("lovely-ecs").System
 
-local Animation = require("love2d.components.Animation")
+local Animation = require("lovely-ecs.love2d.components.Animation")
 
 ---@class AnimationSystem: System
 local AnimationSystem = class("AnimationSystem", System)

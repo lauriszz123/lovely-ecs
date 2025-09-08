@@ -3,6 +3,7 @@ local ECS = require("lovely-ecs")
 ---@class Love2DECS
 local Love2DECS = {}
 
+---@diagnostic disable-next-line: different-requires
 Love2DECS.Components = {
 	PhysicsBody = require("lovely-ecs.love2d.components.PhysicsBody"),
 	Animation = require("lovely-ecs.love2d.components.Animation"),
@@ -61,6 +62,7 @@ function Love2DECS.start()
 	originalCallbacks.resize = love.resize
 
 	-- Override Love2D callbacks
+	---@diagnostic disable-next-line: duplicate-set-field
 	love.update = function(dt)
 		if currentWorld then
 			currentWorld:update(dt)

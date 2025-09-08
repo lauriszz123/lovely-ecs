@@ -6,8 +6,12 @@ local Component = require("component")
 local Entity = class("Entity")
 
 function Entity:initialize()
+	---@type Component[] All components attached to this entity, indexed by class name.
 	self.components = {}
+	---@type boolean Is the entity active in the world?
 	self.active = true
+	---@type World The world the entity belongs to.
+	self.world = nil
 end
 
 --- Adds a component to the entity.

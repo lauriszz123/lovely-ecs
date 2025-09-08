@@ -15,6 +15,7 @@ end
 ---@param entity Entity
 function World:addEntity(entity)
 	table.insert(self.entities, entity)
+	entity.world = self
 	for _, sys in ipairs(self.systems) do
 		sys:onEntityAdded(entity)
 	end

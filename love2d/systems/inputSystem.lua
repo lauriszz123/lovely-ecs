@@ -1,7 +1,7 @@
 local class = require("modified_middleclass")
 local System = require("lovely-ecs").System
 
-local Input = require("love2d.components.Input")
+local Input = require("lovely-ecs.love2d.components.Input")
 
 ---@class InputSystem: System
 local InputSystem = class("InputSystem", System)
@@ -39,6 +39,7 @@ function InputSystem:onKeyReleased(key, scancode)
 	local entities = self.world:getEntitiesWith(Input)
 	for _, entity in ipairs(entities) do
 		local input = entity:getComponent(Input)
+		---@cast input Input
 
 		input.keysReleased[key] = true
 		input.keysDown[key] = false
@@ -49,6 +50,8 @@ function InputSystem:onMousePressed(x, y, button, istouch, presses)
 	local entities = self.world:getEntitiesWith(Input)
 	for _, entity in ipairs(entities) do
 		local input = entity:getComponent(Input)
+		---@cast input Input
+
 		input.mousePressed[button] = true
 		input.mouseDown[button] = true
 	end
@@ -58,6 +61,8 @@ function InputSystem:onMouseReleased(x, y, button, istouch, presses)
 	local entities = self.world:getEntitiesWith(Input)
 	for _, entity in ipairs(entities) do
 		local input = entity:getComponent(Input)
+		---@cast input Input
+
 		input.mouseReleased[button] = true
 		input.mouseDown[button] = false
 	end

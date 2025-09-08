@@ -2,9 +2,10 @@ local class = require("modified_middleclass")
 
 local System = require("lovely-ecs").System
 
-local Sprite = require("love2d.components.Sprite")
-local Animation = require("love2d.components.Animation")
-local PhysicsBody = require("love2d.components.PhysicsBody")
+---@diagnostic disable-next-line: different-requires
+local Sprite = require("lovely-ecs.love2d.components.Sprite")
+local Animation = require("lovely-ecs.love2d.components.Animation")
+local PhysicsBody = require("lovely-ecs.love2d.components.PhysicsBody")
 
 ---@class RenderSystem: System
 local RenderSystem = class("RenderSystem", System)
@@ -77,7 +78,10 @@ function RenderSystem:draw()
 
 	for _, e in ipairs(entitiesWithPhysicsBodies) do
 		local p = e:getComponent(PhysicsBody)
+		---@cast p PhysicsBody
+
 		local s = e:getComponent(Sprite)
+		---@cast s Sprite
 
 		if p and not s then
 			local x, y = p.body:getX(), p.body:getY()

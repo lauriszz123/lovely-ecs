@@ -1,7 +1,7 @@
 local class = require("modified_middleclass")
 local System = require("lovely-ecs").System
 
-local Timer = require("love2d.components.Timer")
+local Timer = require("lovely-ecs.love2d.components.Timer")
 
 ---@class TimerSystem: System
 local TimerSystem = class("TimerSystem", System)

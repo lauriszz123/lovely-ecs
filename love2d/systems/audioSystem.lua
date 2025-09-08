@@ -1,7 +1,7 @@
 local class = require("modified_middleclass")
 local System = require("lovely-ecs").System
 
-local Audio = require("love2d.components.Audio")
+local Audio = require("lovely-ecs.love2d.components.Audio")
 
 ---@class AudioSystem: System
 local AudioSystem = class("AudioSystem", System)

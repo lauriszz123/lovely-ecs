@@ -43,4 +43,16 @@ function PhysicsBody:onRemove()
 	end
 end
 
+function PhysicsBody:getPosition()
+	return self.body:getPosition()
+end
+
+function PhysicsBody:getAngle()
+	return self.body:getAngle()
+end
+
+function PhysicsBody:setBullet(isBullet)
+	self.body:setBullet(isBullet)
+end
+
 return PhysicsBody
