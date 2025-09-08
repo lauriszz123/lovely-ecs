@@ -15,22 +15,35 @@ function Input:initialize()
 	self.mouseY = 0
 end
 
+--- Is a key currently held down?
+---@param key string Key name
+---@return boolean true if down
 function Input:isKeyDown(key)
 	return self.keysDown[key] or false
 end
 
+--- Was a key pressed this frame?
+---@param key string Key name
+---@return boolean true if pressed this frame
 function Input:isKeyPressed(key)
 	return self.keysPressed[key] or false
 end
 
+--- Was a key released this frame?
+---@param key string Key name
+---@return boolean true if released this frame
 function Input:isKeyReleased(key)
 	return self.keysReleased[key] or false
 end
 
+--- Is a mouse button currently held down?
+---@param button number Mouse button (1=left, 2=right, 3=middle)
+---@return boolean true if down
 function Input:isMouseDown(button)
 	return self.mouseDown[button] or false
 end
 
+--- Clear the frame-specific input events.
 function Input:clearFrameEvents()
 	self.keysPressed = {}
 	self.keysReleased = {}

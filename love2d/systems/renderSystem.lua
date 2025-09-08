@@ -39,41 +39,47 @@ function RenderSystem:draw()
 	love.graphics.translate(-self.camera.x, -self.camera.y)
 
 	for _, entity in ipairs(entitiesWithSprites) do
-		local sprite = entity:getComponent(Sprite)
-		---@cast sprite Sprite
+		when(
+			entity:getComponent(Sprite),
+			entity:getComponent(PhysicsBody),
 
-		local animation = entity:getComponent(Animation)
-		---@cast animation Animation
+			---@param sprite Sprite
+			---@param physicsBody PhysicsBody
+			function(sprite, physicsBody)
+				if sprite.visible then
+					local x, y = physicsBody.body:getX(), physicsBody.body:getY()
+					local rotation = physicsBody.body:getAngle()
+					love.graphics.push()
+					love.graphics.translate(x, y)
+					love.graphics.rotate(rotation)
+					love.graphics.setColor(sprite.color)
 
-		local physicsBody = entity:getComponent(PhysicsBody)
-		---@cast physicsBody PhysicsBody
+					if sprite.image then
+						local quad = nil
+						when(entity:getComponent(Animation), function(animation) ---@param animation Animation
+							quad = animation:getCurrentFrame(animation.currentAnimation)
+						end)
 
-		if sprite.visible and physicsBody then
-			local x, y = physicsBody.body:getX(), physicsBody.body:getY()
-			local rotation = physicsBody.body:getAngle()
-			love.graphics.push()
-			love.graphics.translate(x, y)
-			love.graphics.rotate(rotation)
-			love.graphics.setColor(sprite.color)
+						if quad then
+							love.graphics.draw(sprite.image, quad, -sprite.originX, -sprite.originY)
+						else
+							love.graphics.draw(sprite.image, -sprite.originX, -sprite.originY)
+						end
+					else
+						-- Draw a colored rectangle if no image
+						love.graphics.rectangle(
+							"fill",
+							-sprite.width / 2,
+							-sprite.height / 2,
+							sprite.width,
+							sprite.height
+						)
+					end
 
-			if sprite.image then
-				local quad = nil
-				if animation then
-					quad = animation:getCurrentFrame()
+					love.graphics.pop()
 				end
-
-				if quad then
-					love.graphics.draw(sprite.image, quad, -sprite.originX, -sprite.originY)
-				else
-					love.graphics.draw(sprite.image, -sprite.originX, -sprite.originY)
-				end
-			else
-				-- Draw a colored rectangle if no image
-				love.graphics.rectangle("fill", -sprite.width / 2, -sprite.height / 2, sprite.width, sprite.height)
 			end
-
-			love.graphics.pop()
-		end
+		)
 	end
 
 	for _, e in ipairs(entitiesWithPhysicsBodies) do

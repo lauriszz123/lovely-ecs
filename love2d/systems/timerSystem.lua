@@ -10,27 +10,26 @@ function TimerSystem:update(dt)
 	local entities = self.world:getEntitiesWith(Timer)
 
 	for _, entity in ipairs(entities) do
-		local timer = entity:getComponent(Timer)
-		---@cast timer Timer
+		when(entity:getComponent(Timer), function(timer) ---@param timer Timer
+			for name, timerData in pairs(timer.timers) do
+				if timerData.active then
+					timerData.remaining = timerData.remaining - dt
 
-		for name, timerData in pairs(timer.timers) do
-			if timerData.active then
-				timerData.remaining = timerData.remaining - dt
+					if timerData.remaining <= 0 then
+						-- Execute callback
+						if timerData.callback then
+							timerData.callback(entity)
+						end
 
-				if timerData.remaining <= 0 then
-					-- Execute callback
-					if timerData.callback then
-						timerData.callback(entity)
-					end
-
-					if timerData.repeating then
-						timerData.remaining = timerData.duration
-					else
-						timer.timers[name] = nil
+						if timerData.repeating then
+							timerData.remaining = timerData.duration
+						else
+							timer.timers[name] = nil
+						end
 					end
 				end
 			end
-		end
+		end)
 	end
 end
 

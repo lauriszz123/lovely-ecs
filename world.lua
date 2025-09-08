@@ -1,5 +1,7 @@
 local class = require("modified_middleclass")
 
+local Entity = require("entity")
+
 ---@class World: Class
 local World = class("World")
 

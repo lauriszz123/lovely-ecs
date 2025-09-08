@@ -269,6 +269,14 @@ function Love2DECS.getEntitiesWith(...)
 	end
 end
 
+function Love2DECS.getEntityCount()
+	if currentWorld then
+		return #currentWorld.entities
+	else
+		error("No world set. Use Love2DECS.setWorld() first.")
+	end
+end
+
 -- Export ECS classes for convenience
 Love2DECS.Component = ECS.Component
 Love2DECS.Entity = ECS.Entity

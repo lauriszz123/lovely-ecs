@@ -43,14 +43,17 @@ function PhysicsBody:onRemove()
 	end
 end
 
+--- Get the position of the physics body.
 function PhysicsBody:getPosition()
 	return self.body:getPosition()
 end
 
+--- Gets the angle of the physics body in radians.
 function PhysicsBody:getAngle()
 	return self.body:getAngle()
 end
 
+--- Sets whether this body is treated as a "bullet" for continuous collision detection.
 function PhysicsBody:setBullet(isBullet)
 	self.body:setBullet(isBullet)
 end

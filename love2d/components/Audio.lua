@@ -10,6 +10,10 @@ function Audio:initialize()
 	self.volume = 1.0
 end
 
+--- Adds a sound.
+---@param name string Identifier for the sound.
+---@param path string Path to the sound file.
+---@param volume number Default volume (0.0 to 1.0).
 function Audio:addSound(name, path, volume)
 	self.sounds[name] = {
 		source = love.audio.newSource(path, "static"),
@@ -17,6 +21,10 @@ function Audio:addSound(name, path, volume)
 	}
 end
 
+--- Adds music.
+---@param name string Identifier for the music.
+---@param path string Path to the music file.
+---@param volume number Default volume (0.0 to 1.0).
 function Audio:addMusic(name, path, volume)
 	self.music[name] = {
 		source = love.audio.newSource(path, "stream"),
@@ -24,6 +32,9 @@ function Audio:addMusic(name, path, volume)
 	}
 end
 
+--- Plays a sound effect.
+---@param name string Identifier of the sound to play.
+---@param volume number Optional volume override (0.0 to 1.0).
 function Audio:playSound(name, volume)
 	if self.sounds[name] then
 		local sound = self.sounds[name]
@@ -32,6 +43,10 @@ function Audio:playSound(name, volume)
 	end
 end
 
+--- Plays music.
+---@param name string Identifier of the music to play.
+---@param loop boolean Whether to loop the music.
+---@param volume number Optional volume override (0.0 to 1.0).
 function Audio:playMusic(name, loop, volume)
 	if self.music[name] then
 		local music = self.music[name]

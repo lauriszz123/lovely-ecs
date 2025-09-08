@@ -15,6 +15,11 @@ function Sprite:initialize(imagePath, width, height)
 	self.layer = 0 -- For draw order
 end
 
+--- Set the color tint for the sprite.
+---@param r number Red (0-1)
+---@param g number Green (0-1)
+---@param b number Blue (0-1)
+---@param a number|nil Alpha (0-1), optional
 function Sprite:setColor(r, g, b, a)
 	self.color = { r, g, b, a or 1 }
 end
