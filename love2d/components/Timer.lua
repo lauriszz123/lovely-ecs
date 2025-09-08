@@ -11,7 +11,7 @@ end
 --- Adds a new timer.
 ---@param name string Name of the timer.
 ---@param duration number Duration in seconds.
----@param callback function Function to call when the timer completes.
+---@param callback function|nil Function to call when the timer completes.
 ---@param repeating boolean|nil Optional. If true, the timer will reset after completing.
 function Timer:addTimer(name, duration, callback, repeating)
 	self.timers[name] = {

@@ -83,23 +83,22 @@ function RenderSystem:draw()
 	end
 
 	for _, e in ipairs(entitiesWithPhysicsBodies) do
-		local p = e:getComponent(PhysicsBody)
-		---@cast p PhysicsBody
+		when(e:getComponent(PhysicsBody), function(p) ---@param p PhysicsBody
+			local s = e:getComponent(Sprite)
+			---@cast s Sprite
 
-		local s = e:getComponent(Sprite)
-		---@cast s Sprite
+			if p and not s then
+				local x, y = p.body:getX(), p.body:getY()
+				local angle = p.body:getAngle()
 
-		if p and not s then
-			local x, y = p.body:getX(), p.body:getY()
-			local angle = p.body:getAngle()
-
-			love.graphics.setColor({ 1, 1, 1 })
-			love.graphics.push()
-			love.graphics.translate(x, y)
-			love.graphics.rotate(angle)
-			love.graphics.rectangle("fill", -(p.width / 2), -(p.height / 2), p.width, p.height)
-			love.graphics.pop()
-		end
+				love.graphics.setColor({ 1, 1, 1 })
+				love.graphics.push()
+				love.graphics.translate(x, y)
+				love.graphics.rotate(angle)
+				love.graphics.rectangle("fill", -(p.width / 2), -(p.height / 2), p.width, p.height)
+				love.graphics.pop()
+			end
+		end)
 	end
 
 	love.graphics.pop()

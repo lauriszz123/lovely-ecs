@@ -42,7 +42,7 @@ function World:addSystem(system)
 end
 
 --- Gets all entities that have the specified components.
----@param ... Component
+---@param ... Class<Component>
 ---@return Entity[]
 function World:getEntitiesWith(...)
 	local required = { ... }
@@ -64,6 +64,20 @@ function World:getEntitiesWith(...)
 	end
 
 	return results
+end
+
+---@param entityClass Class<Entity>
+---@return Entity[]
+function World:getEntitiesByClass(entityClass)
+	---@type Entity[]
+	local result = {}
+	for _, e in ipairs(self.entities) do
+		if e:isInstanceOf(entityClass) then
+			table.insert(result, e)
+		end
+	end
+
+	return result
 end
 
 --- Updates all systems in the world.

@@ -4,18 +4,24 @@ package.path = package.path .. ";./lovely-ecs/?.lua"
 ---@param ... any Values to check, last argument is the function to execute
 function _G.when(...)
 	local args = { ... }
-	local fn = args[#args]
-	local allNil = true
-
-	for i = 1, #args - 1 do
-		if args[i] == nil then
-			allNil = false
-			break
+	if #args == 2 then
+		if args[1] then
+			args[2](args[1])
 		end
-	end
+	else
+		local fn = args[#args]
+		local allNil = true
 
-	if allNil == true then
-		fn(unpack(args, 1, #args - 1))
+		for i = 1, #args - 1 do
+			if args[i] == nil then
+				allNil = false
+				break
+			end
+		end
+
+		if allNil == true then
+			fn(unpack(args, 1, #args - 1))
+		end
 	end
 end
 
