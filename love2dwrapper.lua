@@ -259,11 +259,20 @@ function Love2DECS.addSystem(system)
 end
 
 --- Get entities with specified components from the current world
----@param ... Component Component to filter by
+---@param ... Class<Component> Component to filter by
 ---@return Entity[] List of entities with the specified components
 function Love2DECS.getEntitiesWith(...)
 	if currentWorld then
 		return currentWorld:getEntitiesWith(...)
+	else
+		error("No world set. Use Love2DECS.setWorld() first.")
+	end
+end
+
+---@param entityClass Class<Entity>
+function Love2DECS.getEntitiesByClass(entityClass)
+	if currentWorld then
+		return currentWorld:getEntitiesByClass(entityClass)
 	else
 		error("No world set. Use Love2DECS.setWorld() first.")
 	end
