@@ -23,6 +23,7 @@ Love2DECS.Systems = {
 }
 
 -- Store the current world instance
+---@type World
 local currentWorld = nil
 
 -- Internal flag to track if wrapper is active
@@ -269,7 +270,7 @@ function Love2DECS.getEntitiesWith(...)
 	end
 end
 
----@param entityClass Class<Entity>
+---@param entityClass Class
 function Love2DECS.getEntitiesByClass(entityClass)
 	if currentWorld then
 		return currentWorld:getEntitiesByClass(entityClass)

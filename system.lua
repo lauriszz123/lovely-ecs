@@ -88,4 +88,8 @@ function System:onFocus(focused)
 	-- override in subclass
 end
 
+--- Override to handle text input when typed.
+---@param text string The text typed.
+function System:onTextInput(text) end
+
 return System

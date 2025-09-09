@@ -2,7 +2,7 @@ local class = require("modified_middleclass")
 
 local Entity = require("entity")
 
----@class World: Class
+---@class World: Object
 local World = class("World")
 
 function World:initialize()
@@ -42,7 +42,7 @@ function World:addSystem(system)
 end
 
 --- Gets all entities that have the specified components.
----@param ... Class<Component>
+---@param ... Component
 ---@return Entity[]
 function World:getEntitiesWith(...)
 	local required = { ... }
@@ -66,9 +66,13 @@ function World:getEntitiesWith(...)
 	return results
 end
 
----@param entityClass Class<Entity>
+---@param entityClass Class
 ---@return Entity[]
 function World:getEntitiesByClass(entityClass)
+	if not entityClass:isSubclassOf(Entity) then
+		error("Not an entity!")
+	end
+
 	---@type Entity[]
 	local result = {}
 	for _, e in ipairs(self.entities) do

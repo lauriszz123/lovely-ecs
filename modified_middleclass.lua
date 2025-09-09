@@ -1,4 +1,5 @@
 ---@diagnostic disable
+
 ---@class Class
 local Class = {}
 
@@ -10,7 +11,7 @@ function Class:allocate() end
 
 --- Creates a new initialized instance.
 ---@param ... any
----@return table
+---@return Class
 function Class:new(...) end
 
 --- Creates a subclass.

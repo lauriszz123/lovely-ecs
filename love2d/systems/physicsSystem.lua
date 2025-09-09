@@ -7,6 +7,9 @@ local PhysicsSystem = class("PhysicsSystem", System)
 function PhysicsSystem:initialize(gx, gy)
 	System.initialize(self)
 
+	self.FIXED_TIMESTEP = 1 / 120
+	self.acc = 0
+
 	self.physicsWorld = love.physics.newWorld(gx or 0, gy or 0)
 
 	self.physicsWorld:setCallbacks(function(a, b)
@@ -49,7 +52,11 @@ function PhysicsSystem:endContact(a, b)
 end
 
 function PhysicsSystem:update(dt)
-	self.physicsWorld:update(dt)
+	self.acc = self.acc + dt
+	while self.acc > self.FIXED_TIMESTEP do
+		self.physicsWorld:update(self.FIXED_TIMESTEP)
+		self.acc = self.acc - self.FIXED_TIMESTEP
+	end
 end
 
 function PhysicsSystem:getPhysicsWorld()
