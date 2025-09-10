@@ -1,7 +1,7 @@
 local class = require("modified_middleclass")
 local System = require("lovely-ecs").System
 
-local PhysicsBody = require("love2d.components.PhysicsBody")
+local PhysicsBody = require("lovely-ecs.love2d.components.PhysicsBody")
 
 ---@class PhysicsSystem: System
 local PhysicsSystem = class("PhysicsSystem", System)
