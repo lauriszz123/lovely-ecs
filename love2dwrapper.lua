@@ -279,6 +279,14 @@ function Love2DECS.getEntitiesByClass(entityClass)
 	end
 end
 
+function Love2DECS.getEntitiesWithTag(tag)
+	if currentWorld then
+		return currentWorld:getEntitiesWithTag(tag)
+	else
+		error("No world set. Use Love2DECS.setWorld() first.")
+	end
+end
+
 function Love2DECS.getEntityCount()
 	if currentWorld then
 		return #currentWorld.entities

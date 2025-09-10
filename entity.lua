@@ -12,6 +12,8 @@ function Entity:initialize()
 	self.active = true
 	---@type World The world the entity belongs to.
 	self.world = nil
+	---@type string A tag, used to filter entities.
+	self.tag = "default"
 end
 
 --- Adds a component to the entity.
@@ -51,6 +53,12 @@ function Entity:removeComponent(component)
 		end
 		self.components[cname] = nil
 	end
+end
+
+--- Set the entities tag.
+---@param tag string
+function Entity:setTag(tag)
+	self.tag = tag
 end
 
 --- Override to handle collision with another entity.

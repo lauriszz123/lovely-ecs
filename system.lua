@@ -92,4 +92,7 @@ end
 ---@param text string The text typed.
 function System:onTextInput(text) end
 
+---@param entity Entity
+function System:onEntityRemoved(entity) end
+
 return System

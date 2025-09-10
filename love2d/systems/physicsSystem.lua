@@ -1,6 +1,8 @@
 local class = require("modified_middleclass")
 local System = require("lovely-ecs").System
 
+local PhysicsBody = require("love2d.components.PhysicsBody")
+
 ---@class PhysicsSystem: System
 local PhysicsSystem = class("PhysicsSystem", System)
 
@@ -61,6 +63,18 @@ end
 
 function PhysicsSystem:getPhysicsWorld()
 	return self.physicsWorld
+end
+
+---@param entity Entity
+function PhysicsSystem:onEntityRemoved(entity)
+	when(entity:getComponent(PhysicsBody), function(pb) ---@param pb PhysicsBody
+		if pb.fixture and not pb.fixture:isDestroyed() then
+			pb.fixture:destroy()
+		end
+		if pb.body and not pb.body:isDestroyed() then
+			pb.body:destroy()
+		end
+	end)
 end
 
 return PhysicsSystem

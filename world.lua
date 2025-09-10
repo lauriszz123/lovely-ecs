@@ -26,10 +26,16 @@ end
 --- Removes an entity from the world.
 ---@param entity Entity
 function World:removeEntity(entity)
+	local ent = nil
 	for i, e in ipairs(self.entities) do
 		if e == entity then
-			table.remove(self.entities, i)
+			ent = table.remove(self.entities, i)
 			break
+		end
+	end
+	if ent then
+		for _, sys in ipairs(self.systems) do
+			sys:onEntityRemoved(ent)
 		end
 	end
 end
@@ -77,6 +83,19 @@ function World:getEntitiesByClass(entityClass)
 	local result = {}
 	for _, e in ipairs(self.entities) do
 		if e:isInstanceOf(entityClass) then
+			table.insert(result, e)
+		end
+	end
+
+	return result
+end
+
+---@param tag string What kind of entities to get?
+function World:getEntitiesWithTag(tag)
+	---@type Entity[]
+	local result = {}
+	for _, e in ipairs(self.entities) do
+		if e.tag == tag then
 			table.insert(result, e)
 		end
 	end
