@@ -45,10 +45,13 @@ end
 
 --- Clear the frame-specific input events.
 function Input:clearFrameEvents()
-	self.keysPressed = {}
-	self.keysReleased = {}
-	self.mousePressed = {}
-	self.mouseReleased = {}
+	if self.canClearEvents then
+		self.keysPressed = {}
+		self.keysReleased = {}
+		self.mousePressed = {}
+		self.mouseReleased = {}
+		self.canClearEvents = false
+	end
 end
 
 return Input
