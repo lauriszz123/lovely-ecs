@@ -46,38 +46,34 @@ function RenderSystem:draw()
 			---@param sprite Sprite
 			---@param physicsBody PhysicsBody
 			function(sprite, physicsBody)
-				if sprite.visible then
-					local x, y = physicsBody.body:getX(), physicsBody.body:getY()
-					local rotation = physicsBody.body:getAngle()
-					love.graphics.push()
-					love.graphics.translate(x, y)
-					love.graphics.rotate(rotation)
-					love.graphics.setColor(sprite.color)
-
-					if sprite.image then
-						local quad = nil
-						when(entity:getComponent(Animation), function(animation) ---@param animation Animation
-							quad = animation:getCurrentFrame(animation.currentAnimation)
-						end)
-
-						if quad then
-							love.graphics.draw(sprite.image, quad, -sprite.originX, -sprite.originY)
-						else
-							love.graphics.draw(sprite.image, -sprite.originX, -sprite.originY)
-						end
-					else
-						-- Draw a colored rectangle if no image
-						love.graphics.rectangle(
-							"fill",
-							-sprite.width / 2,
-							-sprite.height / 2,
-							sprite.width,
-							sprite.height
-						)
-					end
-
-					love.graphics.pop()
+				if not sprite.visible then
+					return
 				end
+
+				local x, y = physicsBody.body:getX(), physicsBody.body:getY()
+				local rotation = physicsBody.body:getAngle()
+				love.graphics.push()
+				love.graphics.translate(x, y)
+				love.graphics.rotate(rotation)
+				love.graphics.setColor(sprite.color)
+
+				if sprite.image then
+					local quad = nil
+					when(entity:getComponent(Animation), function(animation) ---@param animation Animation
+						quad = animation:getCurrentFrame(animation.currentAnimation)
+					end)
+
+					if quad then
+						love.graphics.draw(sprite.image, quad, -sprite.originX, -sprite.originY)
+					else
+						love.graphics.draw(sprite.image, -sprite.originX, -sprite.originY)
+					end
+				else
+					-- Draw a colored rectangle if no image
+					love.graphics.rectangle("fill", -sprite.width / 2, -sprite.height / 2, sprite.width, sprite.height)
+				end
+
+				love.graphics.pop()
 			end
 		)
 	end

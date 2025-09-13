@@ -33,6 +33,7 @@ function World:removeEntity(entity)
 			break
 		end
 	end
+
 	if ent then
 		for _, sys in ipairs(self.systems) do
 			sys:onEntityRemoved(ent)
@@ -58,12 +59,14 @@ function World:getEntitiesWith(...)
 
 	for _, e in ipairs(self.entities) do
 		local ok = true
+
 		for _, comp in ipairs(required) do
 			if not e:getComponent(comp) then
 				ok = false
 				break
 			end
 		end
+
 		if ok then
 			table.insert(results, e)
 		end

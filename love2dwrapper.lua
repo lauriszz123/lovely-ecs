@@ -232,67 +232,67 @@ end
 --- Add an entity to the current world
 ---@param entity Entity
 function Love2DECS.addEntity(entity)
-	if currentWorld then
-		currentWorld:addEntity(entity)
-	else
+	if currentWorld == nil then
 		error("No world set. Use Love2DECS.setWorld() first.")
 	end
+
+	currentWorld:addEntity(entity)
 end
 
 --- Remove an entity from the current world
 ---@param entity Entity
 function Love2DECS.removeEntity(entity)
-	if currentWorld then
-		currentWorld:removeEntity(entity)
-	else
+	if currentWorld == nil then
 		error("No world set. Use Love2DECS.setWorld() first.")
 	end
+
+	currentWorld:removeEntity(entity)
 end
 
 --- Add a system to the current world
 ---@param system System
 function Love2DECS.addSystem(system)
-	if currentWorld then
-		currentWorld:addSystem(system)
-	else
+	if currentWorld == nil then
 		error("No world set. Use Love2DECS.setWorld() first.")
 	end
+
+	currentWorld:addSystem(system)
 end
 
 --- Get entities with specified components from the current world
 ---@param ... Class<Component> Component to filter by
 ---@return Entity[] List of entities with the specified components
 function Love2DECS.getEntitiesWith(...)
-	if currentWorld then
-		return currentWorld:getEntitiesWith(...)
-	else
+	if currentWorld == nil then
 		error("No world set. Use Love2DECS.setWorld() first.")
 	end
+
+	return currentWorld:getEntitiesWith(...)
 end
 
 ---@param entityClass Class
 function Love2DECS.getEntitiesByClass(entityClass)
-	if currentWorld then
-		return currentWorld:getEntitiesByClass(entityClass)
-	else
+	if currentWorld == nil then
 		error("No world set. Use Love2DECS.setWorld() first.")
 	end
+
+	return currentWorld:getEntitiesByClass(entityClass)
 end
 
 function Love2DECS.getEntitiesWithTag(tag)
-	if currentWorld then
-		return currentWorld:getEntitiesWithTag(tag)
-	else
+	if currentWorld == nil then
 		error("No world set. Use Love2DECS.setWorld() first.")
 	end
+
+	return currentWorld:getEntitiesWithTag(tag)
 end
 
 function Love2DECS.getEntityCount()
-	if currentWorld then
-		return #currentWorld.entities
-	else
+	if currentWorld == nil then
 		error("No world set. Use Love2DECS.setWorld() first.")
 	end
+
+	return #currentWorld.entities
 end
 
 -- Export ECS classes for convenience

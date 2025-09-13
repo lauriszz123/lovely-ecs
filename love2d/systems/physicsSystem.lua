@@ -71,6 +71,7 @@ function PhysicsSystem:onEntityRemoved(entity)
 		if pb.fixture and not pb.fixture:isDestroyed() then
 			pb.fixture:destroy()
 		end
+
 		if pb.body and not pb.body:isDestroyed() then
 			pb.body:destroy()
 		end

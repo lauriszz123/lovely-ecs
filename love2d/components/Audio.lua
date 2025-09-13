@@ -36,11 +36,13 @@ end
 ---@param name string Identifier of the sound to play.
 ---@param volume number Optional volume override (0.0 to 1.0).
 function Audio:playSound(name, volume)
-	if self.sounds[name] then
-		local sound = self.sounds[name]
-		sound.source:setVolume((volume or sound.volume) * self.volume)
-		love.audio.play(sound.source)
+	if self.sounds[name] == nil then
+		return
 	end
+
+	local sound = self.sounds[name]
+	sound.source:setVolume((volume or sound.volume) * self.volume)
+	love.audio.play(sound.source)
 end
 
 --- Plays music.
@@ -48,12 +50,14 @@ end
 ---@param loop boolean Whether to loop the music.
 ---@param volume number Optional volume override (0.0 to 1.0).
 function Audio:playMusic(name, loop, volume)
-	if self.music[name] then
-		local music = self.music[name]
-		music.source:setVolume((volume or music.volume) * self.volume)
-		music.source:setLooping(loop ~= false)
-		love.audio.play(music.source)
+	if self.music[name] == nil then
+		return
 	end
+
+	local music = self.music[name]
+	music.source:setVolume((volume or music.volume) * self.volume)
+	music.source:setLooping(loop ~= false)
+	love.audio.play(music.source)
 end
 
 return Audio

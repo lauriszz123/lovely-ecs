@@ -51,11 +51,12 @@ end
 ---@return integer|nil Current animation frame
 function Animation:getCurrentFrame(name)
 	local anim = self.animations[name]
-	if anim then
-		return anim.frames[self.currentFrame]
+
+	if anim == nil then
+		return nil
 	end
 
-	return nil
+	return anim.frames[self.currentFrame]
 end
 
 return Animation

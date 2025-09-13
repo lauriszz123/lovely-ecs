@@ -44,7 +44,7 @@ function Object:initialize(...) end
 function Object:isInstanceOf(aClass) end
 
 local middleclass = {
-	_VERSION = "middleclass v4.1.1",
+	_VERSION = "middleclass v4.1.1_LaurSuopEdition",
 	_DESCRIPTION = "Object Orientation for Lua",
 	_URL = "https://github.com/kikito/middleclass",
 	_LICENSE = [[

@@ -12,22 +12,26 @@ function TimerSystem:update(dt)
 	for _, entity in ipairs(entities) do
 		when(entity:getComponent(Timer), function(timer) ---@param timer Timer
 			for name, timerData in pairs(timer.timers) do
-				if timerData.active then
-					timerData.remaining = timerData.remaining - dt
+				if not timerData.active then
+					goto continue
+				end
 
-					if timerData.remaining <= 0 then
-						-- Execute callback
-						if timerData.callback then
-							timerData.callback(entity)
-						end
+				timerData.remaining = timerData.remaining - dt
 
-						if timerData.repeating then
-							timerData.remaining = timerData.duration
-						else
-							timer.timers[name] = nil
-						end
+				if timerData.remaining <= 0 then
+					-- Execute callback
+					if timerData.callback then
+						timerData.callback(entity)
+					end
+
+					if timerData.repeating then
+						timerData.remaining = timerData.duration
+					else
+						timer.timers[name] = nil
 					end
 				end
+
+				::continue::
 			end
 		end)
 	end
