@@ -48,6 +48,16 @@ function World:addSystem(system)
 	table.insert(self.systems, system)
 end
 
+---@param system Class
+---@return System|nil
+function World:getSystem(system)
+	for i, sys in ipairs(self.systems) do
+		if sys.class.name == system.name then
+			return sys
+		end
+	end
+end
+
 --- Gets all entities that have the specified components.
 ---@param ... Component
 ---@return Entity[]

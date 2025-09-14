@@ -14,9 +14,26 @@ function RenderSystem:initialize()
 	System.initialize(self)
 
 	self.camera = { x = 0, y = 0, zoom = 1 }
+	self.shakeTime = 0
+	self.shakeMagnitude = 0
+end
+
+function RenderSystem:update(dt)
+	if self.shakeTime > 0 then
+		self.shakeTime = self.shakeTime - dt
+		if self.shakeTime < 0 then
+			self.shakeTime = 0
+		end
+	end
+end
+
+function RenderSystem:shake(duration, magnitude)
+	self.shakeTime = duration or 0.2
+	self.shakeMagnitude = magnitude or 8
 end
 
 function RenderSystem:draw()
+	local shakeX, shakeY = 0, 0
 	local entitiesWithSprites = self.world:getEntitiesWith(Sprite)
 	local entitiesWithPhysicsBodies = self.world:getEntitiesWith(PhysicsBody)
 
@@ -33,8 +50,13 @@ function RenderSystem:draw()
 		return spriteA.layer < spriteB.layer
 	end)
 
-	-- Apply camera transform
+	if self.shakeTime > 0 then
+		shakeX = love.math.random(-self.shakeMagnitude, self.shakeMagnitude)
+		shakeY = love.math.random(-self.shakeMagnitude, self.shakeMagnitude)
+	end
+
 	love.graphics.push()
+	love.graphics.translate(shakeX, shakeY)
 	love.graphics.scale(self.camera.zoom)
 	love.graphics.translate(-self.camera.x, -self.camera.y)
 
