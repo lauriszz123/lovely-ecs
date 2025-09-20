@@ -20,6 +20,7 @@ function _G.when(...)
 		end
 
 		if allNil == true then
+			---@diagnostic disable-next-line: deprecated
 			fn(unpack(args, 1, #args - 1))
 		end
 	end
