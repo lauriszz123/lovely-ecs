@@ -132,6 +132,39 @@ function World:draw()
 	end
 end
 
+--- Identifies entity type and returns a normalized ID (0-1) for neural network input.
+--- This function generates consistent IDs based on entity class name or tag.
+---@param entity Entity The entity to identify
+---@return number A normalized ID between 0 and 1
+function World:identifyEntity(entity)
+	if not entity then
+		return 0.0 -- unknown/nil entity
+	end
+
+	-- Use entity class name as primary identifier
+	local typeString = entity.class.name
+
+	-- If class name is just "Entity", use the tag instead
+	if typeString == "Entity" then
+		typeString = entity.tag or "unknown"
+	end
+
+	-- Generate hash from type string
+	local hash = 0
+	local normalizedType = string.lower(typeString)
+
+	for i = 1, #normalizedType do
+		local char = string.byte(normalizedType, i)
+		hash = hash + char * (i * 31) -- multiply by position and prime
+	end
+
+	-- Normalize to 0.001-1.0 range (avoid 0 for actual entities)
+	hash = math.abs(hash)
+	local normalized = 0.001 + ((hash % 999) / 1000)
+
+	return normalized
+end
+
 --- Notifies all systems of application close.
 function World:onApplicationClose()
 	for _, sys in ipairs(self.systems) do

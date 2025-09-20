@@ -1,3 +1,5 @@
+---@diagnostic disable: deprecated
+
 --
 -- flux
 --
