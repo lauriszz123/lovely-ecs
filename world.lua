@@ -46,6 +46,7 @@ end
 function World:addSystem(system)
 	system.world = self
 	table.insert(self.systems, system)
+	system:onInitialized()
 end
 
 ---@param system Class

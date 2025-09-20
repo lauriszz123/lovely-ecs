@@ -1,11 +1,12 @@
 local class = require("modified_middleclass")
 
 ---@class System: Object
+---@field world World The world the system belongs to.
 local System = class("System")
 
-function System:initialize()
-	---@type World
-	self.world = nil
+--- Ovverride to handle when the system is initialized.
+function System:onInitialized()
+	-- override in subclass
 end
 
 --- Override to update things in the system.
