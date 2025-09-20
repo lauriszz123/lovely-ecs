@@ -185,6 +185,7 @@ function flux:update(deltatime)
 end
 
 function flux:clear(obj, vars)
+	---@diagnostic disable-next-line: param-type-mismatch
 	for t in pairs(self[obj]) do
 		if t.inited then
 			for k in pairs(vars) do
@@ -208,6 +209,7 @@ end
 function flux:remove(x)
 	if type(x) == "number" then
 		-- Remove from object table, destroy table if it is empty
+		---@diagnostic disable-next-line: undefined-field
 		local obj = self[x].obj
 		self[obj][self[x]] = nil
 		if not next(self[obj]) then
