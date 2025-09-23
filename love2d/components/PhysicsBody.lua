@@ -19,7 +19,7 @@ function PhysicsBody:initialize(world, x, y, width, height, bodyType)
 
 	if bodyType == "dynamic" then
 		-- Prevent endless spinning on collision
-		self.body:setAngularDamping(8.0) -- High angular damping to stop rotation quickly
+		self.body:setAngularDamping(1.0) -- Reduced from 8.0 to allow rotation
 
 		-- Set linear damping for more realistic movement
 		self.body:setLinearDamping(2.0) -- Slight drag to feel more grounded
