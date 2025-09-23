@@ -26,6 +26,7 @@ end
 --- Removes an entity from the world.
 ---@param entity Entity
 function World:removeEntity(entity)
+	---@type Entity
 	local ent = nil
 	for i, e in ipairs(self.entities) do
 		if e == entity then
@@ -38,6 +39,7 @@ function World:removeEntity(entity)
 		for _, sys in ipairs(self.systems) do
 			sys:onEntityRemoved(ent)
 		end
+		ent:onRemoveFromWorld()
 	end
 end
 

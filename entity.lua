@@ -73,4 +73,9 @@ function Entity:onCollisionEnd(other)
 	-- override in subclass
 end
 
+--- Called when the entity is removed from the world.
+function Entity:onRemoveFromWorld()
+	-- override in subclass
+end
+
 return Entity
